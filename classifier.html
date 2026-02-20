@@ -65,7 +65,8 @@
       transition: border-color 0.2s, background 0.2s;
       position: relative;
     }
-    .upload-area:hover {
+    .upload-area:hover,
+    .upload-area.dragover {
       border-color: #667eea;
       background: #f0f2ff;
     }
@@ -204,17 +205,38 @@
     }
     loadModel();
 
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+    function loadImage(file) {
+      if (!file || !file.type.startsWith('image/')) return;
       const reader = new FileReader();
       reader.onload = (ev) => {
         preview.src = ev.target.result;
         previewWrap.style.display = 'block';
         predictBtn.style.display = 'block';
         resultDiv.style.display = 'none';
+        predictBtn.textContent = '판별 시작';
       };
       reader.readAsDataURL(file);
+    }
+
+    fileInput.addEventListener('change', (e) => {
+      loadImage(e.target.files[0]);
+    });
+
+    const uploadArea = document.getElementById('upload-area');
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      loadImage(e.dataTransfer.files[0]);
     });
 
     predictBtn.addEventListener('click', async () => {
