@@ -40,3 +40,18 @@ h1 {
     font-size: 20px;
     font-weight: bold;
 }
+
+body.dark {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+body.dark h1 {
+    color: #f0f0f0;
+}
+
+body.dark .lotto-number {
+    background-color: #333;
+    border-color: #555;
+    color: #f0f0f0;
+}

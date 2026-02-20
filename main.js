@@ -1,3 +1,8 @@
+const themeBtn = document.getElementById('theme-btn');
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+});
+
 const generateBtn = document.getElementById('generate-btn');
 const lottoNumbersContainer = document.getElementById('lotto-numbers');
 
