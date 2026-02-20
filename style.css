@@ -41,6 +41,55 @@ h1 {
     font-weight: bold;
 }
 
+.contact-section {
+    margin-top: 60px;
+    width: 100%;
+    max-width: 480px;
+}
+
+.contact-section h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #333;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#contact-form input,
+#contact-form textarea {
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+#contact-form button {
+    padding: 10px;
+    font-size: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#contact-form button:hover {
+    background-color: #45a049;
+}
+
+#form-success {
+    margin-top: 12px;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
 body.dark {
     background-color: #1a1a1a;
     color: #f0f0f0;
@@ -52,6 +101,17 @@ body.dark h1 {
 
 body.dark .lotto-number {
     background-color: #333;
+    border-color: #555;
+    color: #f0f0f0;
+}
+
+body.dark .contact-section h2 {
+    color: #f0f0f0;
+}
+
+body.dark #contact-form input,
+body.dark #contact-form textarea {
+    background-color: #2a2a2a;
     border-color: #555;
     color: #f0f0f0;
 }

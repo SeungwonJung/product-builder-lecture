@@ -17,6 +17,22 @@ generateBtn.addEventListener('click', () => {
     });
 });
 
+const contactForm = document.getElementById('contact-form');
+const formSuccess = document.getElementById('form-success');
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(contactForm);
+    const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+        contactForm.style.display = 'none';
+        formSuccess.style.display = 'block';
+    }
+});
+
 function generateLottoNumbers() {
     const numbers = new Set();
     while (numbers.size < 6) {
