@@ -1,161 +1,509 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-    padding-top: 56px;
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  line-height: 1.7;
+  padding-top: 60px;
 }
 
+a { color: #667eea; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ===== NAV ===== */
 .top-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-    z-index: 100;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  height: 60px;
+}
+
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-logo {
+  color: white;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .nav-link {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 0.3px;
-    transition: opacity 0.2s;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
 }
 
-.nav-link:hover {
-    opacity: 0.8;
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  text-decoration: none;
 }
 
-h1 {
-    color: #333;
+/* ===== THEME TOGGLE ===== */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 200;
+}
+
+#theme-btn {
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  background: #667eea;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(102,126,234,0.4);
+  transition: opacity 0.2s;
+}
+#theme-btn:hover { opacity: 0.85; }
+
+/* ===== MAIN WRAP ===== */
+.main-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+/* ===== HERO / TOOL SECTION ===== */
+.hero-section {
+  text-align: center;
+  margin-bottom: 48px;
+  background: white;
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+.hero-section h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #2d2d2d;
+  margin-bottom: 10px;
+}
+
+.hero-desc {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 28px;
 }
 
 #generate-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-    margin-bottom: 20px;
+  padding: 14px 36px;
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  cursor: pointer;
+  margin-bottom: 28px;
+  transition: opacity 0.2s, transform 0.1s;
+  box-shadow: 0 4px 16px rgba(102,126,234,0.35);
 }
+#generate-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+#generate-btn:active { transform: translateY(0); }
 
 #lotto-numbers {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 56px;
 }
 
 .lotto-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #fff;
-    border: 2px solid #ccc;
-    font-size: 20px;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
+/* Lotto number color bands */
+.lotto-number.band1 { background: #f9ca24; color: #333; }
+.lotto-number.band2 { background: #6ab04c; }
+.lotto-number.band3 { background: #eb4d4b; }
+.lotto-number.band4 { background: #7d5fff; }
+.lotto-number.band5 { background: #636e72; }
+
+/* ===== CONTENT SECTIONS ===== */
+.content-section {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.content-section h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #2d2d2d;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f2ff;
+}
+
+.content-section p {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+.content-section p:last-child { margin-bottom: 0; }
+
+/* ===== TABLE ===== */
+.table-wrap { overflow-x: auto; }
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.info-table th {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 12px 14px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.info-table td {
+  padding: 11px 14px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444;
+}
+
+.info-table tbody tr:hover { background: #f8f8ff; }
+.info-table td:first-child { font-weight: 700; color: #667eea; }
+
+/* ===== PROBABILITY LIST ===== */
+.prob-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.prob-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f9ff;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.prob-rank {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: white;
+}
+.prob-rank.rank1 { background: linear-gradient(135deg, #f9ca24, #f0932b); color: #333; }
+.prob-rank.rank2 { background: linear-gradient(135deg, #c0c0c0, #909090); }
+.prob-rank.rank3 { background: linear-gradient(135deg, #cd7f32, #a0522d); }
+.prob-rank.rank4 { background: #6ab04c; }
+.prob-rank.rank5 { background: #636e72; }
+
+.prob-num { font-size: 14px; color: #555; font-weight: 600; }
+
+/* ===== FAQ ===== */
+.faq-list { display: flex; flex-direction: column; gap: 16px; }
+
+.faq-item {
+  background: #f8f9ff;
+  border-left: 4px solid #667eea;
+  border-radius: 0 10px 10px 0;
+  padding: 16px 18px;
+}
+
+.faq-item h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.faq-item p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* ===== TIPS ===== */
+.tip-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tip-list li {
+  font-size: 14px;
+  color: #555;
+  background: #f8f9ff;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+/* ===== CONTACT SECTION ===== */
 .contact-section {
-    margin-top: 60px;
-    width: 100%;
-    max-width: 480px;
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
 
 .contact-section h2 {
-    margin-bottom: 16px;
-    font-size: 20px;
-    color: #333;
+  font-size: 20px;
+  font-weight: 800;
+  color: #2d2d2d;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f2ff;
 }
 
 #contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
 }
 
 #contact-form input,
 #contact-form textarea {
-    padding: 10px 14px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: sans-serif;
+  padding: 11px 14px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+#contact-form input:focus,
+#contact-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
 }
 
 #contact-form button {
-    padding: 10px;
-    font-size: 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
-
-#contact-form button:hover {
-    background-color: #45a049;
-}
+#contact-form button:hover { opacity: 0.88; }
 
 #form-success {
-    margin-top: 12px;
-    color: #4CAF50;
-    font-weight: bold;
+  margin-top: 12px;
+  color: #4CAF50;
+  font-weight: bold;
 }
 
-body.dark {
-    background-color: #1a1a1a;
-    color: #f0f0f0;
-}
-
-body.dark h1 {
-    color: #f0f0f0;
-}
-
-body.dark .lotto-number {
-    background-color: #333;
-    border-color: #555;
-    color: #f0f0f0;
-}
-
+/* ===== DISQUS ===== */
 .disqus-section {
-    margin-top: 60px;
-    width: 100%;
-    max-width: 480px;
-    margin-bottom: 60px;
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
 
 .disqus-section h2 {
-    margin-bottom: 16px;
-    font-size: 20px;
-    color: #333;
+  font-size: 20px;
+  font-weight: 800;
+  color: #2d2d2d;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f2ff;
 }
 
-body.dark .disqus-section h2 {
-    color: #f0f0f0;
+/* ===== FOOTER ===== */
+.site-footer {
+  text-align: center;
+  padding: 32px 20px;
+  background: #2d2d2d;
+  color: #aaa;
+  font-size: 13px;
+  line-height: 1.8;
 }
 
-body.dark .contact-section h2 {
-    color: #f0f0f0;
+.site-footer a { color: #aaa; text-decoration: underline; }
+.site-footer a:hover { color: white; }
+
+/* ===== ABOUT / PRIVACY PAGE ===== */
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 16px;
 }
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.page-header p { opacity: 0.85; font-size: 15px; }
+
+.tool-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.tool-card-icon { font-size: 40px; }
+
+.tool-card h3 { font-size: 17px; font-weight: 800; color: #2d2d2d; margin-bottom: 6px; }
+.tool-card p { font-size: 14px; color: #666; margin: 0; }
+
+.tool-card a {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.privacy-section {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.privacy-section h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #2d2d2d;
+  margin-bottom: 12px;
+}
+
+.privacy-section p,
+.privacy-section li {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.privacy-section ul { padding-left: 20px; }
+
+/* ===== DARK MODE ===== */
+body.dark {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+}
+
+body.dark .hero-section,
+body.dark .content-section,
+body.dark .contact-section,
+body.dark .disqus-section,
+body.dark .tool-card,
+body.dark .privacy-section {
+  background-color: #22223b;
+  color: #e0e0e0;
+}
+
+body.dark .hero-section h1,
+body.dark .content-section h2,
+body.dark .contact-section h2,
+body.dark .disqus-section h2,
+body.dark .page-header h1,
+body.dark .tool-card h3,
+body.dark .privacy-section h2 {
+  color: #e0e0e0;
+}
+
+body.dark .content-section p,
+body.dark .faq-item p,
+body.dark .tip-list li,
+body.dark .prob-num,
+body.dark .tool-card p,
+body.dark .privacy-section p,
+body.dark .privacy-section li,
+body.dark .info-table td {
+  color: #bbb;
+}
+
+body.dark .faq-item,
+body.dark .tip-list li,
+body.dark .prob-item { background: #2a2a4a; }
+
+body.dark .info-table tbody tr:hover { background: #2a2a4a; }
 
 body.dark #contact-form input,
 body.dark #contact-form textarea {
-    background-color: #2a2a2a;
-    border-color: #555;
-    color: #f0f0f0;
+  background-color: #2a2a4a;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark .hero-desc { color: #aaa; }
+body.dark .content-section h2 { border-bottom-color: #3a3a5a; }
+body.dark .contact-section h2,
+body.dark .disqus-section h2 { border-bottom-color: #3a3a5a; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .nav-link { font-size: 11px; padding: 5px 7px; }
+  .nav-logo { font-size: 15px; }
+  .hero-section h1 { font-size: 22px; }
+  .main-wrap { padding: 24px 14px 48px; }
+  .content-section, .contact-section, .disqus-section { padding: 22px 16px; }
 }

@@ -1,50 +1,146 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lotto Number Generator</title>
+  <title>로또 번호 생성기 | 무료 행운의 번호 자동 추첨</title>
+  <meta name="description" content="무료 로또 번호 자동 생성기. 클릭 한 번으로 1~45 중 6개의 행운의 번호를 랜덤으로 추첨해 드립니다. 로또 6/45 당첨 확률, 등수 안내, 구매 방법까지 한눈에 확인하세요." />
   <link href='/style.css' rel='stylesheet'>
+  <meta name="google-adsense-account" content="ca-pub-1037309569216117">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1037309569216117"
+     crossorigin="anonymous"></script>
 </head>
 <body>
   <nav class="top-nav">
-    <a href="/classifier.html" class="nav-link">
-      🐶🐱 강아지 vs 고양이 판별기
-    </a>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">🎯 도구 모음</a>
+      <div class="nav-links">
+        <a href="/" class="nav-link active">🎱 로또 생성기</a>
+        <a href="/classifier.html" class="nav-link">🐾 동물 판별기</a>
+        <a href="/about.html" class="nav-link">소개</a>
+        <a href="/privacy.html" class="nav-link">개인정보처리방침</a>
+      </div>
+    </div>
   </nav>
 
   <div class="theme-toggle">
-    <button id="theme-btn">Toggle Dark Mode</button>
+    <button id="theme-btn">🌙 다크 모드</button>
   </div>
-  <h1>Lotto Number Generator</h1>
-  <button id="generate-btn">Generate Numbers</button>
-  <div id="lotto-numbers"></div>
 
-  <section class="contact-section">
-    <h2>제휴 문의</h2>
-    <form id="contact-form" action="https://formspree.io/f/xgollyjg" method="POST">
-      <input type="text" name="name" placeholder="이름" required />
-      <input type="email" name="email" placeholder="이메일" required />
-      <textarea name="message" placeholder="문의 내용" rows="4" required></textarea>
-      <button type="submit">보내기</button>
-    </form>
-    <p id="form-success" style="display:none;">문의가 접수되었습니다. 감사합니다!</p>
-  </section>
+  <main class="main-wrap">
 
-  <section class="disqus-section">
-    <h2>댓글</h2>
-    <div id="disqus_thread"></div>
-    <script>
-      (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://productbuilder-xa1wanpqzl.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>댓글을 보려면 JavaScript를 활성화해주세요. <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </section>
+    <section class="hero-section">
+      <h1>🎱 로또 번호 자동 생성기</h1>
+      <p class="hero-desc">클릭 한 번으로 1~45 사이의 행운의 번호 6개를 무작위로 추첨해 드립니다.</p>
+      <button id="generate-btn">번호 생성하기</button>
+      <div id="lotto-numbers"></div>
+    </section>
 
-  <script defer type="text/javascript" src="/main.js?v=4"></script>
+    <section class="content-section">
+      <h2>로또 6/45란?</h2>
+      <p>로또 6/45는 대한민국 기획재정부 복권위원회가 주관하는 공식 복권입니다. 매주 토요일 오후 8시 35분에 추첨이 진행되며, 1부터 45까지의 숫자 중 6개를 선택하여 당첨 번호와 일치하는 개수에 따라 1등부터 5등까지 당첨금이 지급됩니다.</p>
+      <p>1장의 로또 복권은 1,000원이며, 하나의 복권에는 5게임(A~E)이 포함되어 있습니다. 자동, 수동, 반자동 방식으로 구매할 수 있으며, 전국 로또 판매점 또는 동행복권 공식 사이트와 앱을 통해 온라인으로도 구매 가능합니다.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>당첨 등수 및 조건</h2>
+      <div class="table-wrap">
+        <table class="info-table">
+          <thead>
+            <tr><th>등수</th><th>당첨 조건</th><th>당첨금</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1등</td><td>6개 번호 모두 일치</td><td>당첨금 풀 75% 균등 분배</td></tr>
+            <tr><td>2등</td><td>5개 일치 + 보너스 번호 일치</td><td>당첨금 풀 12.5% 균등 분배</td></tr>
+            <tr><td>3등</td><td>5개 번호 일치</td><td>당첨금 풀 12.5% 균등 분배</td></tr>
+            <tr><td>4등</td><td>4개 번호 일치</td><td>고정 50,000원</td></tr>
+            <tr><td>5등</td><td>3개 번호 일치</td><td>고정 5,000원</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>당첨 확률</h2>
+      <p>로또 6/45의 1등 당첨 확률은 <strong>약 814만분의 1</strong>입니다. 45개의 숫자에서 6개를 선택하는 조합의 수가 8,145,060가지이기 때문입니다. 아래에서 각 등수별 당첨 확률을 확인해 보세요.</p>
+      <div class="prob-list">
+        <div class="prob-item"><span class="prob-rank rank1">1등</span><span class="prob-num">1 / 8,145,060</span></div>
+        <div class="prob-item"><span class="prob-rank rank2">2등</span><span class="prob-num">1 / 1,357,510</span></div>
+        <div class="prob-item"><span class="prob-rank rank3">3등</span><span class="prob-num">1 / 35,724</span></div>
+        <div class="prob-item"><span class="prob-rank rank4">4등</span><span class="prob-num">1 / 733</span></div>
+        <div class="prob-item"><span class="prob-rank rank5">5등</span><span class="prob-num">1 / 45</span></div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>번호 선택 팁</h2>
+      <ul class="tip-list">
+        <li>🎲 <strong>자동 선택 활용</strong>: 어떤 번호를 선택할지 고민된다면 판매점 자동 번호나 이 생성기를 활용하세요. 완전한 무작위이므로 수동 선택과 당첨 확률은 동일합니다.</li>
+        <li>📊 <strong>통계 참고</strong>: 동행복권 공식 사이트에서 역대 당첨 번호 통계를 확인할 수 있습니다. 특정 번호가 자주 나왔다고 해서 앞으로도 자주 나오는 것은 아닙니다.</li>
+        <li>🔢 <strong>다양한 구간 선택</strong>: 1~10, 11~20, 21~30, 31~40, 41~45의 5개 구간에서 골고루 번호를 선택하는 전략을 활용하는 분들도 있습니다.</li>
+        <li>💡 <strong>연속 번호도 가능</strong>: 실제 당첨 번호에는 연속된 숫자(예: 13, 14)가 포함되는 경우가 종종 있습니다. 연속 번호를 피할 이유는 없습니다.</li>
+        <li>🎯 <strong>책임감 있는 복권 구매</strong>: 복권은 오락 목적으로 즐기는 것이 좋습니다. 가계에 부담이 되지 않는 선에서 구매하세요.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>Q. 이 생성기로 만든 번호는 당첨 가능성이 더 높을까요?</h3>
+          <p>A. 아니요. 로또는 완전한 무작위 추첨이기 때문에 어떤 번호도 다른 번호보다 당첨 가능성이 높거나 낮지 않습니다. 이 생성기는 JavaScript의 난수 생성 함수를 사용하여 1~45 사이의 숫자 6개를 무작위로 선택합니다.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Q. 번호를 여러 세트 생성할 수 있나요?</h3>
+          <p>A. 네, 버튼을 여러 번 클릭하면 매번 새로운 번호 세트가 생성됩니다. 원하는 만큼 반복해서 생성하실 수 있습니다.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Q. 로또는 어디서 구매할 수 있나요?</h3>
+          <p>A. 전국 로또 판매점에서 구매하거나 동행복권 공식 앱 및 웹사이트(dhlottery.co.kr)에서 온라인으로 구매할 수 있습니다. 온라인 구매는 본인 인증이 필요합니다.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Q. 당첨금은 언제, 어디서 수령하나요?</h3>
+          <p>A. 당첨 발표 다음 날부터 1년 이내에 수령해야 합니다. 5만원 이하는 로또 판매점에서, 그 이상의 금액은 농협은행 본·지점에서 수령할 수 있습니다. 1년이 지나면 당첨금을 받을 수 없으니 반드시 기한 내에 확인하세요.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Q. 추첨은 언제, 어떻게 진행되나요?</h3>
+          <p>A. 매주 토요일 오후 8시 35분에 공개 추첨이 진행됩니다. 추첨 결과는 동행복권 공식 사이트와 KBS2 TV 방송을 통해 확인할 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <h2>제휴 문의</h2>
+      <form id="contact-form" action="https://formspree.io/f/xgollyjg" method="POST">
+        <input type="text" name="name" placeholder="이름" required />
+        <input type="email" name="email" placeholder="이메일" required />
+        <textarea name="message" placeholder="문의 내용" rows="4" required></textarea>
+        <button type="submit">보내기</button>
+      </form>
+      <p id="form-success" style="display:none;">문의가 접수되었습니다. 감사합니다!</p>
+    </section>
+
+    <section class="disqus-section">
+      <h2>댓글</h2>
+      <div id="disqus_thread"></div>
+      <script>
+        (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://productbuilder-xa1wanpqzl.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+      <noscript>댓글을 보려면 JavaScript를 활성화해주세요. <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 도구 모음 &nbsp;|&nbsp; <a href="/about.html">소개</a> &nbsp;|&nbsp; <a href="/privacy.html">개인정보처리방침</a> &nbsp;|&nbsp; <a href="/classifier.html">강아지 vs 고양이 판별기</a></p>
+    <p style="margin-top:6px;">본 사이트의 로또 번호는 순수한 오락 목적으로 제공되며, 당첨을 보장하지 않습니다.</p>
+  </footer>
+
+  <script defer type="text/javascript" src="/main.js?v=5"></script>
 </body>
 </html>

@@ -3,43 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>강아지 vs 고양이 판별기</title>
+  <title>강아지 vs 고양이 AI 판별기 | 사진 한 장으로 즉시 확인</title>
+  <meta name="description" content="사진을 업로드하면 AI가 강아지인지 고양이인지 즉시 판별해 드립니다. Google Teachable Machine 기반의 머신러닝 모델을 사용한 무료 반려동물 이미지 분류 도구입니다." />
+  <meta name="google-adsense-account" content="ca-pub-1037309569216117">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1037309569216117"
+     crossorigin="anonymous"></script>
+  <link href='/style.css' rel='stylesheet'>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: sans-serif;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #f5f7fa, #e8ecf1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    /* classifier-specific styles */
+    .classifier-wrap {
+      max-width: 780px;
+      margin: 0 auto;
       padding: 40px 20px 60px;
     }
 
-    .back-link {
-      align-self: flex-start;
-      margin-bottom: 24px;
-      color: #667eea;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
+    .classifier-hero {
+      text-align: center;
+      margin-bottom: 32px;
     }
-    .back-link:hover { opacity: 0.7; }
 
-    h1 {
+    .classifier-hero h1 {
       font-size: 28px;
       font-weight: 800;
       color: #2d2d2d;
-      margin-bottom: 6px;
-      text-align: center;
+      margin-bottom: 8px;
     }
 
-    .subtitle {
+    .classifier-hero .subtitle {
       color: #888;
-      font-size: 14px;
-      margin-bottom: 36px;
-      text-align: center;
+      font-size: 15px;
     }
 
     .card {
@@ -49,6 +41,7 @@
       padding: 36px;
       width: 100%;
       max-width: 480px;
+      margin: 0 auto 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -82,11 +75,7 @@
     .upload-text { font-size: 15px; color: #555; }
     .upload-hint { font-size: 12px; color: #aaa; margin-top: 4px; }
 
-    #preview-wrap {
-      display: none;
-      width: 100%;
-      text-align: center;
-    }
+    #preview-wrap { display: none; width: 100%; text-align: center; }
     #preview {
       max-width: 100%;
       max-height: 260px;
@@ -111,10 +100,7 @@
     #predict-btn:hover { opacity: 0.88; }
     #predict-btn:disabled { opacity: 0.5; cursor: default; }
 
-    #result {
-      width: 100%;
-      display: none;
-    }
+    #result { width: 100%; display: none; }
 
     .result-label {
       font-size: 22px;
@@ -124,9 +110,7 @@
       color: #2d2d2d;
     }
 
-    .bar-wrap {
-      margin-bottom: 12px;
-    }
+    .bar-wrap { margin-bottom: 12px; }
     .bar-label {
       display: flex;
       justify-content: space-between;
@@ -153,39 +137,142 @@
       text-align: center;
       margin-bottom: 8px;
     }
+
+    body.dark .classifier-hero h1 { color: #e0e0e0; }
+    body.dark .classifier-hero .subtitle { color: #aaa; }
+    body.dark .card { background: #22223b; }
+    body.dark .upload-text { color: #bbb; }
+    body.dark .result-label { color: #e0e0e0; }
+    body.dark .bar-label { color: #bbb; }
+    body.dark #preview { border-color: #444; }
   </style>
 </head>
 <body>
-
-  <a href="/" class="back-link">← 메인으로</a>
-
-  <h1>🐶 vs 🐱 판별기</h1>
-  <p class="subtitle">사진을 업로드하면 AI가 강아지인지 고양이인지 알려드려요</p>
-
-  <div class="card">
-    <div class="upload-area" id="upload-area">
-      <input type="file" id="file-input" accept="image/*" />
-      <div class="upload-icon">📸</div>
-      <div class="upload-text">이미지를 클릭하거나 드래그해서 업로드</div>
-      <div class="upload-hint">JPG, PNG, GIF 등 이미지 파일</div>
+  <nav class="top-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">🎯 도구 모음</a>
+      <div class="nav-links">
+        <a href="/" class="nav-link">🎱 로또 생성기</a>
+        <a href="/classifier.html" class="nav-link active">🐾 동물 판별기</a>
+        <a href="/about.html" class="nav-link">소개</a>
+        <a href="/privacy.html" class="nav-link">개인정보처리방침</a>
+      </div>
     </div>
+  </nav>
 
-    <div id="preview-wrap">
-      <img id="preview" src="" alt="미리보기" />
-    </div>
-
-    <button id="predict-btn">판별 시작</button>
-
-    <div id="result">
-      <div class="emoji-result" id="result-emoji"></div>
-      <div class="result-label" id="result-label"></div>
-      <div id="bars"></div>
-    </div>
+  <div class="theme-toggle">
+    <button id="clf-theme-btn">🌙 다크 모드</button>
   </div>
+
+  <div class="classifier-wrap">
+
+    <div class="classifier-hero">
+      <h1>🐶 vs 🐱 강아지 · 고양이 판별기</h1>
+      <p class="subtitle">사진을 업로드하면 AI가 강아지인지 고양이인지 즉시 알려드려요</p>
+    </div>
+
+    <div class="card">
+      <div class="upload-area" id="upload-area">
+        <input type="file" id="file-input" accept="image/*" />
+        <div class="upload-icon">📸</div>
+        <div class="upload-text">이미지를 클릭하거나 드래그해서 업로드</div>
+        <div class="upload-hint">JPG, PNG, GIF, WEBP 등 이미지 파일</div>
+      </div>
+
+      <div id="preview-wrap">
+        <img id="preview" src="" alt="업로드된 반려동물 이미지 미리보기" />
+      </div>
+
+      <button id="predict-btn">판별 시작</button>
+
+      <div id="result">
+        <div class="emoji-result" id="result-emoji"></div>
+        <div class="result-label" id="result-label"></div>
+        <div id="bars"></div>
+      </div>
+    </div>
+
+    <section class="content-section">
+      <h2>이 도구는 어떻게 작동하나요?</h2>
+      <p>이 판별기는 <strong>Google Teachable Machine</strong>으로 학습된 이미지 분류 AI 모델을 사용합니다. 수천 장의 강아지·고양이 사진을 학습하여, 새로운 이미지가 입력되면 각 동물일 확률을 계산해 결과를 보여줍니다.</p>
+      <p>이미지는 브라우저 내에서 처리되며 서버에 전송되지 않습니다. 개인정보 걱정 없이 안전하게 사용하실 수 있습니다.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Teachable Machine이란?</h2>
+      <p>Google Teachable Machine은 코딩 지식 없이도 누구나 머신러닝 모델을 직접 학습시킬 수 있는 Google의 무료 도구입니다. 이미지·오디오·자세 등 다양한 유형의 데이터를 분류하는 AI 모델을 웹 브라우저에서 간편하게 제작할 수 있습니다.</p>
+      <p>내부적으로는 TensorFlow.js를 기반으로 하며, 학습된 모델은 웹, 앱 등 다양한 환경에 바로 적용할 수 있습니다.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>정확한 판별을 위한 사진 팁</h2>
+      <ul class="tip-list">
+        <li>🐾 <strong>동물의 얼굴이 잘 보이는 사진</strong>을 사용하면 판별 정확도가 높아집니다.</li>
+        <li>💡 <strong>밝고 선명한 사진</strong>을 권장합니다. 너무 어둡거나 흐릿한 사진은 오류가 발생할 수 있습니다.</li>
+        <li>🖼️ <strong>동물이 중앙에 위치한 사진</strong>이 가장 좋습니다. 배경이 복잡하면 정확도가 낮아질 수 있습니다.</li>
+        <li>🚫 <strong>복수의 동물이 있는 사진</strong>은 가장 두드러지는 동물 기준으로 판별됩니다.</li>
+        <li>📐 <strong>정면 또는 약간 측면 각도</strong>의 사진이 측면이나 뒷모습보다 정확합니다.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>강아지와 고양이, 어떻게 구분할까?</h2>
+      <p>AI는 다음과 같은 시각적 특징들을 학습하여 강아지와 고양이를 구분합니다.</p>
+      <div class="table-wrap">
+        <table class="info-table">
+          <thead>
+            <tr><th>특징</th><th>🐶 강아지</th><th>🐱 고양이</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>눈 모양</td><td>둥글고 크며 다양한 형태</td><td>아몬드형, 날카로운 형태</td></tr>
+            <tr><td>귀 모양</td><td>크고 늘어지거나 세워진 형태</td><td>뾰족하게 세워진 삼각형</td></tr>
+            <tr><td>코 모양</td><td>크고 납작하며 넓은 콧망울</td><td>작고 귀여운 삼각형 형태</td></tr>
+            <tr><td>얼굴형</td><td>주둥이가 뚜렷하게 돌출</td><td>납작하고 둥근 얼굴</td></tr>
+            <tr><td>털 패턴</td><td>매우 다양한 견종별 차이</td><td>줄무늬, 단색 등 패턴 다양</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>Q. 판별 정확도는 얼마나 되나요?</h3>
+          <p>A. 명확한 강아지·고양이 사진의 경우 대부분 높은 정확도로 판별합니다. 단, 희귀 견종·묘종, 혼합견, 어두운 사진, 동물이 작게 찍힌 사진의 경우 정확도가 낮을 수 있습니다.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Q. 업로드한 사진은 어디에 저장되나요?</h3>
+          <p>A. 업로드한 사진은 서버에 저장되지 않습니다. 모든 이미지 분석은 사용자의 브라우저 내에서 처리되며, 외부로 전송되지 않습니다.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Q. 강아지나 고양이가 아닌 다른 동물을 올리면 어떻게 되나요?</h3>
+          <p>A. 이 모델은 강아지와 고양이만 학습했기 때문에, 다른 동물 사진을 올려도 강아지 또는 고양이 중 하나로 분류합니다. 정확하지 않은 결과가 나올 수 있으니 참고용으로만 사용해 주세요.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Q. 모바일에서도 사용할 수 있나요?</h3>
+          <p>A. 네, 모바일 브라우저에서도 완전히 동작합니다. 갤러리에서 사진을 선택하거나 카메라로 바로 촬영하여 업로드할 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <p>© 2025 도구 모음 &nbsp;|&nbsp; <a href="/about.html">소개</a> &nbsp;|&nbsp; <a href="/privacy.html">개인정보처리방침</a> &nbsp;|&nbsp; <a href="/">로또 번호 생성기</a></p>
+    <p style="margin-top:6px;">이 AI 판별 결과는 참고용이며 완벽한 정확도를 보장하지 않습니다.</p>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
   <script>
+    // Theme toggle
+    const clfThemeBtn = document.getElementById('clf-theme-btn');
+    clfThemeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      clfThemeBtn.textContent = document.body.classList.contains('dark') ? '☀️ 라이트 모드' : '🌙 다크 모드';
+    });
+
     const MODEL_URL = 'https://teachablemachine.withgoogle.com/models/NTdXZ3scu/';
     const EMOJIS = { '강아지': '🐶', 'Dog': '🐶', '고양이': '🐱', 'Cat': '🐱' };
     const BAR_CLASS = { '강아지': 'dog', 'Dog': 'dog', '고양이': 'cat', 'Cat': 'cat' };
@@ -218,21 +305,11 @@
       reader.readAsDataURL(file);
     }
 
-    fileInput.addEventListener('change', (e) => {
-      loadImage(e.target.files[0]);
-    });
+    fileInput.addEventListener('change', (e) => { loadImage(e.target.files[0]); });
 
     const uploadArea = document.getElementById('upload-area');
-
-    uploadArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      uploadArea.classList.add('dragover');
-    });
-
-    uploadArea.addEventListener('dragleave', () => {
-      uploadArea.classList.remove('dragover');
-    });
-
+    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+    uploadArea.addEventListener('dragleave', () => { uploadArea.classList.remove('dragover'); });
     uploadArea.addEventListener('drop', (e) => {
       e.preventDefault();
       uploadArea.classList.remove('dragover');
